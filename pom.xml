@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pdf.testing.cucumber.selenium</groupId>
+    <artifactId>pdf-testing-cucumber-selenium</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cucumber.version>6.9.0</cucumber.version>
+        <junit.version>4.13</junit.version>
+        <selenium.version>4.0.0-alpha-7</selenium.version>
+        <mysql.version>8.0.22</mysql.version>
+        <shutterbug.version>1.2</shutterbug.version>
+        <image-comparison.version>4.3.0</image-comparison.version>
+        <sonar.projectName>PDF Comparison</sonar.projectName>
+        <sonar.exclusions>**/runner/**, **/pom.xml</sonar.exclusions>
+        <sonar.sources>src/test/java</sonar.sources>
+        <sonar.tests></sonar.tests>
+        <sonar.java.binaries>target</sonar.java.binaries>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<dependency>
+	        <groupId>org.seleniumhq.selenium</groupId>
+	        <artifactId>selenium-java</artifactId>
+	        <version>${selenium.version}</version>
+	    </dependency>
+
+	 	<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>${mysql.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.assertthat</groupId>
+		    <artifactId>selenium-shutterbug</artifactId>
+		    <version>${shutterbug.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.romankh3</groupId>
+		    <artifactId>image-comparison</artifactId>
+		    <version>${image-comparison.version}</version>
+		</dependency>
+
+		<dependency>
+		     <groupId>net.masterthought</groupId>
+		     <artifactId>cucumber-reporting</artifactId>
+		     <version>5.4.0</version>
+		 </dependency>
+		
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>28.0-jre</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.23</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox-tools</artifactId>
+            <version>2.0.23</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>14</source>
+                    <target>14</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.3.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>cucumber-jvm-example</projectName>
+                            <!-- optional, per documentation set this to "true" to bypass generation of Cucumber Reports entirely, defaults to false if not specified -->
+                            <skip>false</skip>
+                            <!-- output directory for the generated report -->
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <!-- optional, defaults to outputDirectory if not specified -->
+                            <inputDirectory>${project.build.directory}/jsonReports</inputDirectory>
+                            <jsonFiles>
+                                <!-- supports wildcard or name pattern -->
+                                <param>**/*.json</param>
+                            </jsonFiles>
+                            <!-- optional, defaults to outputDirectory if not specified -->
+                            <classificationDirectory>${project.build.directory}/classifications</classificationDirectory>
+                            <classificationFiles>
+                                    <!-- supports wildcard or name pattern -->
+                                    <param>sample.properties</param>
+                                    <param>other.properties</param>
+                            </classificationFiles>
+                            <!-- optional, set true to group features by its Ids -->
+                            <mergeFeaturesById>false</mergeFeaturesById>
+                            <!-- optional, set true to get a final report with latest results of the same test from different test runs -->
+                            <mergeFeaturesWithRetest>false</mergeFeaturesWithRetest>
+                            <!-- optional, set true to fail build on test failures -->
+                            <checkBuildResult>false</checkBuildResult>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
